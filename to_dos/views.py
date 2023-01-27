@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from django.http import HttpResponse
+# from django.http import HttpResponse
 from django.template import loader
 from .models import Todo
 from .forms import TodoForm
@@ -12,6 +12,7 @@ def godwin(request):
     # return HttpResponse(template.render())
 
     #sellecting all data from the database
+ 
     context={}
     context["todo"]=Todo.objects.all()
     return render(request,"index.html",context)
@@ -29,3 +30,12 @@ def delete(request,id):
     todo= Todo.objects.get(id=id)
     todo.delete()
     return redirect("/")
+
+def update(request,id):
+    todo=Todo.objects.get(id=id)
+    form=TodoForm(request.POST,instance=todo)
+    if form.is_valid():
+        form.save()
+        return redirect("/")
+    
+    return render(request,"update.html",{'todos':todo})

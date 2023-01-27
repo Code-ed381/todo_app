@@ -16,38 +16,32 @@
 <body>
     <center>
     <h1>MY TODO APP</h1>
-    <form action="create" method="POST">
+    <form action="{{todos.id}}" method="POST">
         <!--csrf _token protect recieve information that is been transfered to a database-->
         {% csrf_token %}
-        <input type="text" id="text" placeholder="enter your task"name="task"/><br><br>
-        <input type="datetime-local" id="datetime-local" name= "datetime"/><br><br>
-        <input type="text" id="text" placeholder="describe your activity" name="description"/><br><br>
+        <input type="text" id="text" value={{todos.task}} placeholder="enter your task" name="task"/><br><br>
+        <input type="datetime-local" id="datetime-local" value={{todos.datetime}} name= "datetime"/><br><br>
+        <input type="text" id="text" placeholder="describe your activity" value={{todos.description}} name="description"/><br><br>
         <input type="submit" id="submit"/><br><br>
     </form>
-    <div>
+    {% comment %} <div>
         <table>
             <tr>
                 <th>id</th>
+                <th>datetime</th> 
                 <th>task</th>
-                <th> datetime</th>
                 <th>description</th>
                 <th>completed</th>
                 <th>delete</th>
-                <th>update</th>
             </tr>
             {% for items in todo  %}
             <tr>
-                <td>{{items.id}}</td>
-                <td>{{items.task}}</td>
-                <td>{{items.datetime}}</td>
-                <td>{{items.description}}</td>
                 <td><center><input type="checkbox" id="completed"/></center></td>
                 <td><a href='delete/{{items.id}}'>delete</a></td>
-                <td><a href='update/{{items.id}}'>update</a></td>
             </tr>
             {% endfor %}
         </table>
-    </div>
+    </div> {% endcomment %}
     </center>
 </body>
 </html>

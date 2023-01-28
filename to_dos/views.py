@@ -3,6 +3,8 @@ from django.shortcuts import render,redirect
 from django.template import loader
 from .models import Todo
 from .forms import TodoForm
+from .models import Com
+from .forms import ComForm
 from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
@@ -39,3 +41,15 @@ def update(request,id):
         return redirect("/")
     
     return render(request,"update.html",{'todos':todo})
+
+def completed(request,id):
+    todo=Com.objects.get(id=id)
+    form=ComForm(request.POST,instance=todo)
+    if form.is_valid():
+        form.save()   
+        return redirect("/")
+    
+    todo= Todo.objects.get(id=id)
+    todo.delete()
+    
+    

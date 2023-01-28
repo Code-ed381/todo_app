@@ -10,5 +10,11 @@ class Todo(models.Model):
         return self.task
     def __str__(self):
         return self.description
+    
+class Com(models.Model):
+    completed=models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.completed
 
      

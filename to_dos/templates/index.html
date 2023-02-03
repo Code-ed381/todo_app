@@ -6,16 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        
         table,th,td {
             border:1px solid black;
             padding:5px;
             margin:20px;
         }
+
+      
     </style>
 </head>
 <body>
     <center>
-    <h1>MY TODO APP</h1>
+    <h1>MY TIME-FRAME APP</h1>
     <form action="create" method="POST">
         <!--csrf _token protect recieve information that is been transfered to a database-->
         {% csrf_token %}
@@ -25,6 +28,7 @@
         <input type="submit" id="submit"/><br><br>
     </form>
     <div>
+        <h2>SCHEDULES</h2>
         <table>
             <tr>
                 <th>id</th>
@@ -41,9 +45,24 @@
                 <td>{{items.task}}</td>
                 <td>{{items.datetime}}</td>
                 <td>{{items.description}}</td>
-                <td><center><input type="checkbox"/><a href='completed/{{items.id}}'></a></center></td>
+                <td><center><a href='completed/{{items.id}}'>done<input type="checkbox"/></a></center></td>
                 <td><a href='delete/{{items.id}}'>delete</a></td>
                 <td><a href='update/{{items.id}}'>update</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div>
+        <table>
+            <h2 font="bold">COMPLETED</h2>
+            <tr>
+                <th>task</th>
+                <th>datetime</th>
+            </tr>
+            {% for items in completed %}
+            <tr>
+                <td>{{items.task}}</td>
+                <td>{{items.datetime}}</td>
             </tr>
             {% endfor %}
         </table>

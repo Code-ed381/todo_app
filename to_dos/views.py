@@ -3,8 +3,7 @@ from django.shortcuts import render,redirect
 from django.template import loader
 from .models import Todo
 from .forms import TodoForm
-from .models import Com
-from .forms import ComForm
+from .models import Completed
 from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
@@ -17,6 +16,7 @@ def godwin(request):
  
     context={}
     context["todo"]=Todo.objects.all()
+    context["completed"]=Completed.objects.all()
     return render(request,"index.html",context)
 
 @csrf_exempt
@@ -34,8 +34,10 @@ def delete(request,id):
     return redirect("/")
 
 def update(request,id):
+    #todo get the values from the database
     todo=Todo.objects.get(id=id)
-    form=TodoForm(request.POST,instance=todo)
+    #form extract the values from the html form and resave to database(39-41)
+    form=TodoForm(request.POST or None)
     if form.is_valid():
         form.save()
         return redirect("/")
@@ -43,13 +45,18 @@ def update(request,id):
     return render(request,"update.html",{'todos':todo})
 
 def completed(request,id):
-    todo=Com.objects.get(id=id)
-    form=ComForm(request.POST,instance=todo)
-    if form.is_valid():
-        form.save()   
-        return redirect("/")
-    
-    todo= Todo.objects.get(id=id)
+    todo=Todo.objects.get(id=id)
+    #create is akin to insert
+    task=Completed()
+    task.task=todo
+    task.save()
     todo.delete()
     
+    # form=TodoForm(request.POST,instance=todo)
+    # if form.is_valid():
+    #     form.save()
+    print(todo.task)
+    return redirect("/")
+   
     
+     

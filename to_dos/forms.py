@@ -1,6 +1,6 @@
 from django import forms
 from .models import Todo
-from .models import Com
+
 
 class TodoForm(forms.ModelForm):
     class Meta:
@@ -10,13 +10,13 @@ class TodoForm(forms.ModelForm):
             "task",
             "datetime",
             "description"
-            
-        ]
-class ComForm(forms.ModelForm):
-    class Meta:
-        model=Com
+        ]  
+#         
+# class ComForm(forms.ModelForm):
+#     class Meta:
+#         model=Com
 
-        fields=[
-            "complited"
-        ]
+#         fields=[
+#             "complited",
+#         ]
       

@@ -1,5 +1,5 @@
 from django.db import models
-
+from datetime import datetime
 class Todo(models.Model):
     task= models.CharField(max_length=100)
     datetime= models.DateTimeField()
@@ -11,10 +11,11 @@ class Todo(models.Model):
     def __str__(self):
         return self.description
     
-class Com(models.Model):
-    completed=models.CharField(max_length=100)
+class Completed(models.Model):
+    task=models.CharField(max_length=100)
+    datetime= models.DateTimeField(default=datetime.now,blank=True)
 
     def __str__(self):
-        return self.completed
+        return self.task
 
      
